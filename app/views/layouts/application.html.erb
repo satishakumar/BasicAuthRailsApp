@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>BasicAuth Satishakumar</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%#=stylesheet_link_tag 'bootstrap.min.css'%>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+  <%#=javascript_include_tag 'bootstrap.min.js'%>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+	<div class="container-fluid">
+    <div id="app_header" style="float:right">
+      <%if current_user%>
+        Logged in as <b><%= current_user.name%></b> | 
+        <%= link_to "Logout", {:controller => "session", :action => "destroy", :id => "current"}, method: :delete%>
+      <%else%>
+        Logged in as <b>Guest</b> | 
+        &nbsp; <%= link_to "Login", {:controller => "session", :action => "new"}%>
+      <%end%>
+    </div>
+    <div id="notice_messages">
+      <% flash.each do |name,msg|%>
+        <%=content_tag :div, msg, id: "flash_#{name}"%>
+      <%end%>
+    </div>
+    <div>
+      <%= yield %>
+    </div>
+	</div>
+</body>
+</html>
